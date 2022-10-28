@@ -86,6 +86,7 @@ public class SymbolCollector implements ASTvisitor{
         now.insert_function(it.id, it.funcsymbol, it.pos);
     };
     //
+    @Override public void visit(LambdaexprNode it){};
     @Override public void visit(PartstmtNode it){};
     @Override public void visit(BreakstmtNode it){};
     @Override public void visit(ContinuestmtNode it){};

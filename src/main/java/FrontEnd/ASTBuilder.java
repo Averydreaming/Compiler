@@ -181,7 +181,11 @@ public class ASTBuilder extends MxBaseVisitor<ASTNode> {
         BinaryexprNode res = new BinaryexprNode(new position(ctx), src1, src2, op);
         return res;
     }
-    
+
+    @Override
+    public ASTNode visitLambdaexpr(MxParser.LambdaexprContext ctx) {
+        return new LambdaexprNode(new position(ctx));
+    }
     @Override
     public ASTNode visitSuffixexpr(MxParser.SuffixexprContext ctx) {
         return new SuffixexprNode(new position(ctx), (ExprNode) visit(ctx.expr()), ctx.op.getText());

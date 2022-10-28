@@ -288,6 +288,18 @@ public interface MxListener extends ParseTreeListener {
 	 */
 	void exitSuffixexpr(MxParser.SuffixexprContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code lambdaexpr}
+	 * labeled alternative in {@link MxParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterLambdaexpr(MxParser.LambdaexprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code lambdaexpr}
+	 * labeled alternative in {@link MxParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitLambdaexpr(MxParser.LambdaexprContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code binaryexpr}
 	 * labeled alternative in {@link MxParser#expr}.
 	 * @param ctx the parse tree

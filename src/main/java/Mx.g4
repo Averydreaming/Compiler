@@ -45,6 +45,7 @@ expr
     | src1=expr op=('=='|'!=') src2=expr #binaryexpr
     | src1=expr op=('&'|'^'|'|'|'&&'|'||') src2=expr #binaryexpr
     | <assoc=right> src1=expr op='=' src2=expr #binaryexpr
+    |('[' '&' ']'|'[' ']') ( '(' paraList? ')' )? '->' part '(' exprList ')'	#lambdaexpr	//仅在Semantic Check阶段考察
     ;
 exprList: expr(',' expr)*;
 newformat

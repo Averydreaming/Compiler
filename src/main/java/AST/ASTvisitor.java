@@ -26,6 +26,7 @@ public interface ASTvisitor {
     void visit(ClassexprNode it);
     void visit(NewexprNode it);
     void visit(NullexprNode it);
+    void visit(LambdaexprNode it);
     void visit(StringexprNode it);
     void visit(ThisexprNode it);
     void visit(VarexprNode it);

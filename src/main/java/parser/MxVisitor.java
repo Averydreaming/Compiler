@@ -176,6 +176,13 @@ public interface MxVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSuffixexpr(MxParser.SuffixexprContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code lambdaexpr}
+	 * labeled alternative in {@link MxParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLambdaexpr(MxParser.LambdaexprContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code binaryexpr}
 	 * labeled alternative in {@link MxParser#expr}.
 	 * @param ctx the parse tree

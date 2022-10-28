@@ -278,7 +278,7 @@ public class SemanticChecker implements ASTvisitor {
         if (!it.src.assign) throw new semanticError("Invalid suffix", it.pos);
         it.type = it.src.type;
     }
-
+    @Override public void visit(LambdaexprNode it){};
     @Override
     public void visit(PrefixexprNode  it) {
         it.src.accept(this);
