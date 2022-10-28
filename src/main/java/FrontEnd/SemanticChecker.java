@@ -246,7 +246,7 @@ public class SemanticChecker implements ASTvisitor {
             it.exprlist.forEach(x ->
             {
                 x.accept(this);
-             //   if (!x.type.is_int()) throw new semanticError("Invalid new", it.pos);
+                if (!x.type.is_int()) throw new semanticError("Invalid new", it.pos);
             });
         }
         it.type = scope.get_type(it.typenode);
