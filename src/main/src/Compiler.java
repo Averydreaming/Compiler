@@ -14,7 +14,7 @@ import parser.MxParser;
 
 import java.io.InputStream;
 
-public class Main {
+public class Compiler {
     public static void main(String[] args) throws Exception {
  		//CharStream input = CharStreams.fromFileName("D:\\A\\array-3.mx");//新建一个CharStream读取数
         InputStream input = System.in;
