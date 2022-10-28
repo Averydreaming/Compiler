@@ -54,6 +54,12 @@ newformat
     | basictype #basicnewformat
     ;
 //词法分析
+
+//6.constant
+constant: Integers|Strings|Bools|Null;
+Integers: [1-9] [0-9]* | '0';
+Strings: '"' ('\\"'|'\\n'|'\\\\'|.)*? '"';
+Bools: True | False;
 //2.keyword
 Void: 'void';
 Bool: 'bool';
@@ -75,11 +81,6 @@ While: 'while';
 Break: 'break';
 Continue: 'continue';
 Return: 'return';
-//6.constant
-constant: Integers|Strings|Bools|Null;
-Integers: [1-9] [0-9]* | '0';
-Strings: '"' ('\\"'|'\\n'|'\\\\'|.)*? '"';
-Bools: True | False;
 //7.type
 basictype: ID|Bool|Int|String;
 type: basictype ('[' ']')*;
