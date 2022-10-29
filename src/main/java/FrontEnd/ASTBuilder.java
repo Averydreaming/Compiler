@@ -184,7 +184,14 @@ public class ASTBuilder extends MxBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitLambdaexpr(MxParser.LambdaexprContext ctx) {
-        return new LambdaexprNode(new position(ctx));
+            position pos = new position(ctx);
+            LambdaexprNode lambda = new LambdaexprNode(pos);
+            if (ctx.op.getText() != null) lambda.has_and = true;
+            ASTNode tmp = visit(ctx.paraList());
+            if (ctx.paraList()!=null && tmp instanceof VardefstmtNode) lambda.paralist.addAll(((VardefstmtNode) tmp).varlist);//确保定义节点均为VardefstmtNode
+            if (ctx.exprList()!=null)lambda.exprlist=(ExprlistexprNode) visit(ctx.exprList());
+            if(ctx.part()!=null)lambda.body = (PartstmtNode) visit(ctx.part());
+            return lambda;
     }
     @Override
     public ASTNode visitSuffixexpr(MxParser.SuffixexprContext ctx) {

@@ -16,9 +16,9 @@ import java.io.InputStream;
 
 public class Compiler {
     public static void main(String[] args) throws Exception {
- 		CharStream input = CharStreams.fromFileName("D:\\A\\test.mx");//新建一个CharStream读取数
-        //InputStream input_stream = System.in;
-        //CharStream input = CharStreams.fromStream(input_stream);
+ 		//CharStream input = CharStreams.fromFileName("D:\\A\\test.mx");//新建一个CharStream读取数
+        InputStream input_stream = System.in;
+        CharStream input = CharStreams.fromStream(input_stream);
         //InputStream input = System.in;
                try {
                    MxLexer lexer = new MxLexer(input);

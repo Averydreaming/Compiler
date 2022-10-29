@@ -1292,6 +1292,7 @@ public class MxParser extends Parser {
 		}
 	}
 	public static class LambdaexprContext extends ExprContext {
+		public Token op;
 		public PartContext part() {
 			return getRuleContext(PartContext.class,0);
 		}
@@ -1591,7 +1592,7 @@ public class MxParser extends Parser {
 					setState(176);
 					match(T__8);
 					setState(177);
-					match(T__27);
+					((LambdaexprContext)_localctx).op = match(T__27);
 					setState(178);
 					match(T__9);
 					}

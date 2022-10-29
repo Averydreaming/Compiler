@@ -4,6 +4,8 @@ import AST.*;
 import Util.*;
 import Util.error.semanticError;
 
+import java.util.ArrayList;
+
 public class SemanticChecker implements ASTvisitor {
     public Scope scope, now;
     public Type res_type;
@@ -278,7 +280,51 @@ public class SemanticChecker implements ASTvisitor {
         if (!it.src.assign) throw new semanticError("Invalid suffix", it.pos);
         it.type = it.src.type;
     }
-    @Override public void visit(LambdaexprNode it){};
+    /*
+    @Override
+    public void visit(LambdaExprNode node) {
+        currentScope = new LambdaScope(currentScope, node.isGlobe);
+        if (node.functionParameterList != null) node.functionParameterList.accept(this);
+        if (node.functionParameterValue != null) node.functionParameterValue.accept(this);
+        if (node.functionParameterList != null && node.functionParameterValue != null) {
+            ArrayList<SingleVarDefNode> parameterList = node.functionParameterList.parameterList;
+            ArrayList<ExprNode> parameterValue = node.functionParameterValue.parameters;
+            if (parameterValue.size() != parameterList.size())
+                throw new SemanticError("parameter list not match", node.pos);
+            for (int i = 0; i < parameterValue.size(); i++) {
+                if (!parameterList.get(i).typeNode.sameType(parameterValue.get(i).type)) {
+                    int b=1;
+                    throw new SemanticError("parameter list not match", node.pos);
+                }
+            }
+            node.funcBody.accept(this);
+        } else if (node.functionParameterValue == null && node.functionParameterList == null) {
+            node.funcBody.accept(this);
+        } else throw new SemanticError("parameter list not match", node.pos);
+        if (((LambdaScope) currentScope).returnType == null) {
+            node.type = new TypeNode(node.pos, gScope.getType("void"), false);
+        } else node.type = ((LambdaScope) currentScope).returnType;
+        currentScope = currentScope.parentScope;
+    }
+     */
+    @Override public void visit(LambdaexprNode it){
+        Scope tmp=now;
+        now = new Scope(it.has_and? now:null);
+        if (it.paralist != null) it.paralist.forEach(x -> {x.accept(this);});
+        if (it.exprlist != null) it.exprlist.accept(this);
+        if (it.paralist != null && it.exprlist != null) {
+            ArrayList<VardefsubstmtNode> paraList = it.paralist;
+            ArrayList<ExprNode> paravalue = it.exprlist.exprlist;
+            if (paraList.size() != paravalue.size()) throw new semanticError("parameter list not match", it.pos);
+            for (int i = 0; i < paraList.size(); i++) {
+                if (!paraList.get(i).varsymbol.type.equal(paravalue.get(i).type)) {throw new semanticError("parameter list not match", it.pos);}
+            }
+            it.body.accept(this);
+        } else if (it.paralist == null && it.exprlist == null) {
+            it.body.accept(this);
+        } else throw new semanticError("parameter list not match", it.pos);
+        now=tmp;
+    };
     @Override
     public void visit(PrefixexprNode  it) {
         it.src.accept(this);
