@@ -54,7 +54,9 @@ public class TypeCollector implements ASTvisitor{
         }
     };
     //
-    @Override public void visit(LambdaexprNode it){};
+    @Override public void visit(LambdaexprNode it){
+        //if (!it.paralist.isEmpty()) {it.paralist.forEach(x -> {x.accept(this);});}
+    };
     @Override public void visit(BoolexprNode it){};
     @Override public void visit(IntexprNode it){};
     @Override public void visit(NullexprNode it){};

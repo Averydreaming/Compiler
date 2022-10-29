@@ -316,24 +316,30 @@ public class SemanticChecker implements ASTvisitor {
             ArrayList<VardefsubstmtNode> paraList = it.paralist;
             ArrayList<ExprNode> paravalue = it.exprlist.exprlist;
             if (paraList.size() != paravalue.size()) throw new semanticError("parameter list not match1", it.pos);
-            for (int i = 0; i < paraList.size(); i++) {
-                if (!paraList.get(i).varsymbol.type.equal(paravalue.get(i).type)) {
-                    throw new semanticError("parameter list not match2", it.pos);
+            if (paraList.size() ==1 && paravalue.size()==1 && paraList.get(0).type.type.equals("int") && paravalue.get(0).type.is_int()){ }
+            else {
+                for (int i = 0; i < paraList.size(); i++) {
+                    //paraList.get(i).varsymbol=new Varsymbol(paraList.get(i).id,paraList.get(i).typenode);
+                    if (!now.get_type(paraList.get(i).type).equal(paravalue.get(i).type)) {
+                        String d = "0";
+                        if (paraList.get(i).varsymbol.type.is_int() && paravalue.get(i).type.is_int()) d = "11";
+                        if (!paraList.get(i).varsymbol.type.is_int() && paravalue.get(i).type.is_int()) d = "01";
+                        if (paraList.get(i).varsymbol.type.is_int() && !paravalue.get(i).type.is_int()) d = "10";
+                        if (!paraList.get(i).varsymbol.type.is_int() && !paravalue.get(i).type.is_int()) d = "00";
+                        throw new semanticError(d, it.pos);
+                    }
                 }
             }
+            it.body.accept(this);
         }
         else if (it.paralist.isEmpty()  && it.exprlist == null) {
+            it.body.accept(this);
         }
         else throw new semanticError("parameter list not match3", it.pos);
+        it.type=new Literaltype("null");
         for(int i=0;i<it.body.stmtlist.size();i++){
             StmtNode stmt=it.body.stmtlist.get(i);
-            if(stmt instanceof ReturnstmtNode){
-                visit( (ReturnstmtNode)stmt );
-                it.type=((ReturnstmtNode)stmt).res.type;
-            }
-            else {
-                visit((ReturnstmtNode)stmt);
-            }
+            if(stmt instanceof ReturnstmtNode){it.type=((ReturnstmtNode)stmt).res.type;}
         }
         now=tmp;
     };
@@ -397,5 +403,7 @@ public class SemanticChecker implements ASTvisitor {
         }
         if (!fl) throw new semanticError("Invalid Binary!", it.pos);
     }
-    @Override public void visit(ExprlistexprNode  it) {}
+    @Override public void visit(ExprlistexprNode  it) {
+        it.exprlist.forEach(x-> x.accept(this));
+    }
 }
