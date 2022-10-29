@@ -280,33 +280,6 @@ public class SemanticChecker implements ASTvisitor {
         if (!it.src.assign) throw new semanticError("Invalid suffix", it.pos);
         it.type = it.src.type;
     }
-    /*
-    @Override
-    public void visit(LambdaExprNode node) {
-        currentScope = new LambdaScope(currentScope, node.isGlobe);
-        if (node.functionParameterList != null) node.functionParameterList.accept(this);
-        if (node.functionParameterValue != null) node.functionParameterValue.accept(this);
-        if (node.functionParameterList != null && node.functionParameterValue != null) {
-            ArrayList<SingleVarDefNode> parameterList = node.functionParameterList.parameterList;
-            ArrayList<ExprNode> parameterValue = node.functionParameterValue.parameters;
-            if (parameterValue.size() != parameterList.size())
-                throw new SemanticError("parameter list not match", node.pos);
-            for (int i = 0; i < parameterValue.size(); i++) {
-                if (!parameterList.get(i).typeNode.sameType(parameterValue.get(i).type)) {
-                    int b=1;
-                    throw new SemanticError("parameter list not match", node.pos);
-                }
-            }
-            node.funcBody.accept(this);
-        } else if (node.functionParameterValue == null && node.functionParameterList == null) {
-            node.funcBody.accept(this);
-        } else throw new SemanticError("parameter list not match", node.pos);
-        if (((LambdaScope) currentScope).returnType == null) {
-            node.type = new TypeNode(node.pos, gScope.getType("void"), false);
-        } else node.type = ((LambdaScope) currentScope).returnType;
-        currentScope = currentScope.parentScope;
-    }
-     */
     @Override public void visit(LambdaexprNode it){
         Scope tmp=now;
         now = new Scope(it.has_and? now:null);
