@@ -13,7 +13,7 @@ public class NewexprNode extends ExprNode {
         typenode = _typenode;
         typenode.dim = _dim;
         exprlist = _exprlist;
-    }
+    }1
 
     @Override
     public void accept(ASTvisitor visitor) {

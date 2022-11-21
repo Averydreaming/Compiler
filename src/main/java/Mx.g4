@@ -55,7 +55,6 @@ newformat
     | basictype #basicnewformat
     ;
 //词法分析
-
 //6.constant
 constant: Integers|Strings|Bools|Null;
 Integers: [1-9] [0-9]* | '0';
